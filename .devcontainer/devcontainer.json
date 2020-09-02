@@ -1,0 +1,17 @@
+{
+  "name": "Maven Spring Demo",
+
+  "dockerComposeFile": [
+    "../docker-compose.yml",
+    "vs-compose.yml"
+  ],
+
+  "service": "app",
+
+  "workspaceFolder": "/app",
+  "extensions": [
+    "vscjava.vscode-java-pack",
+    "Pivotal.vscode-spring-boot",
+    "vscjava.vscode-spring-boot-dashboard"
+  ]
+}

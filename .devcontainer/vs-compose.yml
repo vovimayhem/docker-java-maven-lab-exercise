@@ -1,0 +1,36 @@
+version: "3.7"
+
+volumes:
+  # maven_user_home:
+  vs_code_server:
+
+services:
+  app:
+    image: demo-maven:development
+    ports:
+      - ${DEMO_WEB_PORT:-8080}:${DEMO_WEB_PORT:-8080}
+    build:
+      context: .
+      target: development
+    
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+    stdin_open: true
+    tty: true
+
+    # [Optional] Required for ptrace-based debuggers like C++, Go, and Rust
+    cap_add:
+    - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+
+    volumes:
+      - .:/app
+      - vs_code_server:/app/.vscode-server
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/demo_development
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 3x4mpl3P455w0rd
+      PORT: ${DEMO_WEB_PORT:-8080}

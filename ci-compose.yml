@@ -1,0 +1,29 @@
+# alias ci-compose="docker-compose -f docker-compose.yml -f ci-compose.yml"
+
+version: "3.7"
+
+services:
+  test:
+    image: demo-maven:testing
+    build:
+      context: .
+      target: testing
+    depends_on:
+      - postgres
+    command: mvn test
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/demo_test
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 3x4mpl3P455w0rd
+
+  builder:
+    image: demo-maven:builder
+    build:
+      context: .
+      target: builder
+
+  release:
+    image: demo-maven:latest
+    build:
+      context: .
+      target: release

@@ -1,0 +1,15 @@
+# Ignore git files:
+.git*
+
+# Ignore maven wrapper files:
+.mvn/**/*.ja*
+mvnw
+mvnw.cmd
+
+# Ignore All docker files:
+Dockerfile
+.dockerignore
+**/*-compose.yml
+
+# Ignore shell history files:
+**/.*_hist*
